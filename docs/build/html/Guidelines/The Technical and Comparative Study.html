@@ -1,0 +1,162 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Technical and Comparative Study &mdash; The Developer Documentation 2024 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=6fefd858"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Contents" href="content.html" />
+    <link rel="prev" title="Tutorials" href="Tutorials%20and%20How-To%27s.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            The Developer Documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Architectural%20diagrams.html">Architectural diagram</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Main%20systems%20overviews.html">Main systems overviews</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Tutorials%20and%20How-To%27s.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Technical and Comparative Study</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#used-algorithm">Used Algorithm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#design-patterns">Design patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#data-structures-for-the-project">Data structures for the project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#storage">Storage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#security">Security</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="content.html">Contents</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">The Developer Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Technical and Comparative Study</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Guidelines/The Technical and Comparative Study.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="technical-and-comparative-study">
+<h1>Technical and Comparative Study<a class="headerlink" href="#technical-and-comparative-study" title="Link to this heading"></a></h1>
+<p>This covers the relevance of using the various technologies we are employing
+(programming language, graphics library, algorithms, networking techniques, etc… ).</p>
+<p>The project is been asked to be coded in <em>C++ language</em> using the graphical library of
+<em>SFML</em> following the algorithm of the original <em>RTYPE</em> game logic and making it available
+over the network as well.</p>
+<p>To encompass this, let’s cover up what is been done and why it’s been done that way.</p>
+<section id="used-algorithm">
+<h2>Used Algorithm<a class="headerlink" href="#used-algorithm" title="Link to this heading"></a></h2>
+</section>
+<section id="design-patterns">
+<h2>Design patterns<a class="headerlink" href="#design-patterns" title="Link to this heading"></a></h2>
+<p>Choosing this design patterns helps escape a lot of problems in developing our engine.
+First thing is the flexibility. To solve this ECS get started with a
+blank object that has only the default required to do its job.
+Due to inheritance trees might get messed up. In a gameplay inheritance can cause problems.</p>
+<p>Second thing is the misuse of the cache because in a game we interate over a set of object a number of time(in fact multiple times per second)
+And this causes a huge waste of the cache. It’s the result we get by restarting our systems or looking
+for alternative to cool the CPU.
+To solve this our ECS would keep all the data that will be iterated upon a
+tightly packed by using the only space required for it in our cache.</p>
+<p>To summarize it we set to design our game with these goals</p>
+<ol class="arabic simple">
+<li><p>Making our code simple and understandable for every developers</p></li>
+<li><p>Avoid a lot of if conditions to help avoid misprediction</p></li>
+<li><p>Have a minimal use of inheritance</p></li>
+</ol>
+</section>
+<section id="data-structures-for-the-project">
+<h2>Data structures for the project<a class="headerlink" href="#data-structures-for-the-project" title="Link to this heading"></a></h2>
+</section>
+<section id="storage">
+<h2>Storage<a class="headerlink" href="#storage" title="Link to this heading"></a></h2>
+<p>a study of different storage techniques should be included in our comparative study,
+regarding persistence, reliability, and storage constraints.</p>
+</section>
+<section id="security">
+<h2>Security<a class="headerlink" href="#security" title="Link to this heading"></a></h2>
+<p>security and data integrity must be managed and secured effectively.
+In our comparative study, it might be relevant to consider the main vulnerabilities
+of each technology. Also, explain how we implemented the security monitoring of those
+technologies, in the long term.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Tutorials%20and%20How-To%27s.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="content.html" class="btn btn-neutral float-right" title="Contents" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Cynthia Zinsou.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
