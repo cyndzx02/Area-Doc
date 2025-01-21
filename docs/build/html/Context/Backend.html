@@ -1,0 +1,324 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="YES" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Backend &mdash; AREA Documentation Latest documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5b49f04b"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FrontEnd" href="FrontEnd.html" />
+    <link rel="prev" title="Architecture" href="Architecture.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            AREA Documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Context:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="Area.html">AREA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Architecture.html">Architecture</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Backend</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#why-we-used-django-for-the-backend-of-the-ifttt-platform">Why We Used Django for the Backend of the IFTTT Platform</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#why-django">Why Django?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#how-django-was-used">How Django Was Used</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#comparison-with-other-backend-technologies">Comparison with Other Backend Technologies</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#why-not-node-js">Why Not Node.js?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-not-ruby-on-rails">Why Not Ruby on Rails?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#why-not-spring-boot">Why Not Spring Boot?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#database-structure">Database Structure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#user-model">User Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#area-model">AREA Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connectsession-model">ConnectSession Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="FrontEnd.html">FrontEnd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Mobile-App.html">Mobile-App</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">AREA Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Backend</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Context/Backend.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="backend">
+<h1>Backend<a class="headerlink" href="#backend" title="Link to this heading"></a></h1>
+<section id="why-we-used-django-for-the-backend-of-the-ifttt-platform">
+<h2>Why We Used Django for the Backend of the IFTTT Platform<a class="headerlink" href="#why-we-used-django-for-the-backend-of-the-ifttt-platform" title="Link to this heading"></a></h2>
+<section id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h3>
+<p>The IFTTT (&quot;If This Then That&quot;) platform, designed to enable users to automate workflows by connecting different services, requires a robust, scalable, and flexible backend. For our implementation, we chose Django, a high-level Python web framework. This document outlines the reasons for this choice, explains how Django was utilized in the platform, and provides a comparison with alternative backend technologies.</p>
+</section>
+</section>
+<section id="why-django">
+<h2>Why Django?<a class="headerlink" href="#why-django" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>Rapid Development</strong></p>
+<p>Django's emphasis on the &quot;Don't Repeat Yourself&quot; (DRY) principle and its batteries-included philosophy made it an excellent choice for quickly developing a feature-rich backend. Key features like its ORM (Object-Relational Mapping), built-in authentication, and admin panel significantly reduced development time.</p>
+</li>
+<li><p><strong>Scalability</strong></p>
+<p>Django's modular architecture and support for asynchronous views (introduced in Django 3.1) allowed us to handle real-time triggers and actions efficiently. The platform's ability to integrate with distributed task queues like Celery ensured that complex workflows could scale horizontally.</p>
+</li>
+<li><p><strong>Security</strong></p>
+<p>Given the sensitive nature of user data in the IFTTT platform, Django's robust security features—including protection against SQL injection, XSS, and CSRF attacks—were critical. Its user authentication framework provided a solid foundation for managing accounts and permissions.</p>
+</li>
+<li><p><strong>Community and Ecosystem</strong></p>
+<p>Django's large community and extensive third-party packages (e.g., Django REST Framework for building APIs) ensured that most challenges had existing solutions, reducing the need for custom development.</p>
+</li>
+<li><p><strong>Python Integration</strong></p>
+<p>Python's simplicity and popularity among developers aligned with our team's skill set. Its libraries for data processing, machine learning, and automation further complemented the requirements of the IFTTT platform.</p>
+</li>
+</ol>
+</section>
+<section id="how-django-was-used">
+<h2>How Django Was Used<a class="headerlink" href="#how-django-was-used" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>API Development</strong></p>
+<ul class="simple">
+<li><p><strong>Django REST Framework (DRF):</strong> We used DRF to build a RESTful API, enabling users to define triggers (IF) and actions (THEN) programmatically.</p></li>
+<li><p><strong>Serialization:</strong> Data from models was serialized into JSON format for communication between the frontend and backend.</p></li>
+</ul>
+</li>
+<li><p><strong>Workflow Management</strong></p>
+<ul class="simple">
+<li><p><strong>Database Models:</strong> Each trigger and action was represented as a model in Django's ORM, making it easy to query and manipulate data.</p></li>
+<li><p><strong>Asynchronous Processing:</strong> We integrated Django with Celery and RabbitMQ to handle workflows asynchronously, ensuring smooth execution of time-sensitive tasks.</p></li>
+</ul>
+</li>
+<li><p><strong>Authentication and Permissions</strong></p>
+<ul class="simple">
+<li><p>Django's built-in user model and customizable authentication system managed user accounts, ensuring secure access to workflows and services.</p></li>
+<li><p>Permissions were enforced at the API level to prevent unauthorized access.</p></li>
+</ul>
+</li>
+<li><p><strong>Admin Panel</strong></p>
+<ul class="simple">
+<li><p>The admin interface allowed us to monitor and manage workflows, user data, and service integrations efficiently without additional development effort.</p></li>
+</ul>
+</li>
+<li><p><strong>Service Integration</strong></p>
+<ul class="simple">
+<li><p>We leveraged Django's support for external libraries to integrate third-party services like Google Calendar, Slack, and IoT devices via their APIs.</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="comparison-with-other-backend-technologies">
+<h2>Comparison with Other Backend Technologies<a class="headerlink" href="#comparison-with-other-backend-technologies" title="Link to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Criteria</strong></p></th>
+<th class="head"><p><strong>Django (Python)</strong></p></th>
+<th class="head"><p><strong>Node.js (JavaScript)</strong></p></th>
+<th class="head"><p><strong>Ruby on Rails (Ruby)</strong></p></th>
+<th class="head"><p><strong>Spring Boot (Java)</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Development Speed</strong></p></td>
+<td><p>High, due to batteries-included</p></td>
+<td><p>Moderate, requires more setup</p></td>
+<td><p>High, convention over configuration</p></td>
+<td><p>Moderate, verbose setup</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Scalability</strong></p></td>
+<td><p>High, with async support</p></td>
+<td><p>Very High, non-blocking I/O</p></td>
+<td><p>Moderate, single-threaded</p></td>
+<td><p>Very High, multi-threaded</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Security</strong></p></td>
+<td><p>Strong, built-in features</p></td>
+<td><p>Moderate, relies on middleware</p></td>
+<td><p>Moderate, requires additional gems</p></td>
+<td><p>Strong, enterprise-grade</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Community Support</strong></p></td>
+<td><p>Extensive</p></td>
+<td><p>Extensive</p></td>
+<td><p>Strong, but niche</p></td>
+<td><p>Strong, enterprise-oriented</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Ease of Use</strong></p></td>
+<td><p>Beginner-friendly</p></td>
+<td><p>Moderate, callback-heavy</p></td>
+<td><p>Beginner-friendly</p></td>
+<td><p>Steeper learning curve</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Performance</strong></p></td>
+<td><p>Moderate to High</p></td>
+<td><p>High</p></td>
+<td><p>Moderate</p></td>
+<td><p>High</p></td>
+</tr>
+</tbody>
+</table>
+<section id="why-not-node-js">
+<h3>Why Not Node.js?<a class="headerlink" href="#why-not-node-js" title="Link to this heading"></a></h3>
+<p>Node.js offers excellent performance for real-time
+applications due to its non-blocking I/O. However, it lacks
+the out-of-the-box features Django provides, leading to increased
+setup and maintenance overhead.</p>
+</section>
+<section id="why-not-ruby-on-rails">
+<h3>Why Not Ruby on Rails?<a class="headerlink" href="#why-not-ruby-on-rails" title="Link to this heading"></a></h3>
+<p>While Rails shares Django's rapid development benefits, its
+performance and scalability are often cited as weaker, making it
+less suitable for handling the real-time workflows of an IFTTT
+platform.</p>
+</section>
+<section id="why-not-spring-boot">
+<h3>Why Not Spring Boot?<a class="headerlink" href="#why-not-spring-boot" title="Link to this heading"></a></h3>
+<p>Spring Boot provides unmatched performance and scalability for
+enterprise-grade applications.
+However, its verbose configuration and steeper learning curve made
+it less suitable for our rapid development needs.</p>
+</section>
+</section>
+<section id="database-structure">
+<h2>Database Structure<a class="headerlink" href="#database-structure" title="Link to this heading"></a></h2>
+<p>This project uses <cite>db.sqlite3</cite> as a database manager.
+It is integrated with NodeJS and Express to manage interactions
+between the front-end server and the API server.</p>
+</section>
+<section id="user-model">
+<h2>User Model<a class="headerlink" href="#user-model" title="Link to this heading"></a></h2>
+<p>The schema contains fields such as:
+- <strong>email</strong>: Email address (type: String)
+- <strong>password</strong>: Encrypted password (type: String)
+- <strong>displayName</strong>: Username (type: String)
+- <strong>isMicrosoftAuthed</strong>: User connected using Microsoft (type: Boolean)
+- <strong>connectData</strong>: Data retrieved when user is connected to a service (type: ServiceSchema)</p>
+<p><strong>ServiceSchema</strong> is used to store data related to a user’s service. It contains:
+- <strong>accessToken</strong>: Access token of the service (type: String)
+- <strong>refreshToken</strong>: Refresh token of the service (type: String)
+- <strong>data</strong>: Data related to the service (type: Object)</p>
+</section>
+<section id="area-model">
+<h2>AREA Model<a class="headerlink" href="#area-model" title="Link to this heading"></a></h2>
+<p>The AREA model stores data about actions and reactions, along with the user’s ID:</p>
+<ul class="simple">
+<li><p><strong>userId</strong>: User ID (type: String)</p></li>
+<li><p><strong>isMobile</strong>: Whether it is from mobile or not (type: Boolean)</p></li>
+<li><p><strong>action</strong>: Information about the action (type: ActionSchema)</p></li>
+<li><p><strong>reaction</strong>: Information about the reaction (type: ReactionSchema)</p></li>
+</ul>
+<p><strong>ActionSchema</strong> represents an action definition:</p>
+<ul class="simple">
+<li><p><strong>service</strong>: Name of the service (type: String)</p></li>
+<li><p><strong>name</strong>: Name of the action (type: String)</p></li>
+<li><p><strong>data</strong>: All information of the action (type: Object)</p></li>
+</ul>
+<p><strong>ReactionSchema</strong> represents a reaction definition:</p>
+<ul class="simple">
+<li><p><strong>service</strong>: Name of the service (type: String)</p></li>
+<li><p><strong>name</strong>: Name of the reaction (type: String)</p></li>
+<li><p><strong>data</strong>: All information of the reaction (type: Object)</p></li>
+</ul>
+</section>
+<section id="connectsession-model">
+<h2>ConnectSession Model<a class="headerlink" href="#connectsession-model" title="Link to this heading"></a></h2>
+<p>The ConnectSession model manages data when the user connects to a service:</p>
+<ul class="simple">
+<li><p><strong>userId</strong>: User ID (type: String)</p></li>
+<li><p><strong>endpoint</strong>: Which endpoint the user is accessing (type: String)</p></li>
+<li><p><strong>isMobile</strong>: Whether it is a mobile request or not</p></li>
+<li><p><strong>data</strong>: Passing data through endpoints and callbacks (type: String)</p></li>
+</ul>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading"></a></h2>
+<p>Django was the ideal choice for our IFTTT platform backend
+due to its rapid development capabilities, robust security,
+scalability, and extensive ecosystem. While other technologies
+like Node.js or Spring Boot have their strengths, Django's
+combination of features and simplicity ensured the successful
+implementation of our platform.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Architecture.html" class="btn btn-neutral float-left" title="Architecture" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="FrontEnd.html" class="btn btn-neutral float-right" title="FrontEnd" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Cynthia ZINSOU.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
